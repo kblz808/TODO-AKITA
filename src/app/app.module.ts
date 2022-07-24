@@ -10,9 +10,14 @@ import { AddTodoComponent } from './add-todo/add-todo.component';
 import { RouterModule } from '@angular/router';
 import { ROUTES } from './app-routes';
 
-import { MatToolbarModule, MatToolbar } from '@angular/material/toolbar';
+import { MatToolbarModule} from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatInputModule } from '@angular/material/input';
 
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -25,7 +30,12 @@ import {HttpClientModule} from '@angular/common/http';
     BrowserAnimationsModule,
     RouterModule.forRoot(ROUTES),
     MatToolbarModule,
-    HttpClientModule
+    HttpClientModule,
+    MatButtonModule,
+    MatCardModule,
+    MatProgressSpinnerModule,
+    MatInputModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
