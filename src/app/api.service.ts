@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { map, Observable } from "rxjs";
+// import { resolve } from "dns";
+import { map, Observable, pipe, tap } from "rxjs";
 import { environment } from "src/environments/environment";
 import { Todo } from "./todo.model";
 
@@ -10,21 +11,27 @@ export class ApiService{
 
     constructor(private http: HttpClient){}
 
-    addTask(title: string, description: string): Observable<Todo>  {
-        return this.http.post<Todo>(this.baseUrl, {title, description});
+    addTodo(title: string, description: string, status: string): Observable<Todo> {
+        return this.http.post<Todo>(`${this.baseUrl}/todo`, {title, description, status});
     }
 
     getTodos(): Observable<Todo[]>{
-        return this.http.get<{data: Todo[]}>(this.baseUrl).pipe(
-            map((res) => res.data)
-        );
+
+        return this.http.get<Todo[]>(`${this.baseUrl}/todo`).pipe(
+            tap(data => data
+            )
+        )
+        
+        // return this.http.get<{data: Todo[]}>(`${this.baseUrl}/todo`).pipe(
+        //     map((res) => res.data)
+        // );
     }
 
     deleteTodo(id: string):Observable<Todo>{
-        return this.http.delete<Todo>(`${this.baseUrl}/${id}`);
+        return this.http.delete<Todo>(`${this.baseUrl}/todo/${id}`);
     }
 
-    updateTodo(id: string, changes:Todo):Observable<Todo>{
-        return this.http.put<Todo>(`${this.baseUrl}/${id}`, changes);
+    updateTodo(id: string, changes:any):Observable<Todo>{
+        return this.http.put<Todo>(`${this.baseUrl}/todo/${id}`, changes);
     }
 }
